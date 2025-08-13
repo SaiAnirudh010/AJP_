@@ -1,0 +1,144 @@
+import javax.swing.*;
+import java.awt.event.*;
+import java.time.LocalTime;
+
+public class GreetingApp extends JFrame implements ActionListener {
+    JButton button;
+    JLabel label;
+
+    GreetingApp() {
+        // Frame title
+        setTitle("Time-Based Greeting");
+
+        // Button setup
+        button = new JButton("Get Greeting");
+        button.setBounds(100, 100, 150, 40);
+        button.addActionListener(this);
+
+        // Label setup
+        label = new JLabel("");
+        label.setBounds(100, 160, 300, 30);
+
+        // Frame settings
+        add(button);
+        add(label);
+        setSize(400, 300);
+        setLayout(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null); // center the frame
+        setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // Get current hour
+        int hour = LocalTime.now().getHour();
+
+        // Determine greeting
+        String greeting;
+        if (hour >= 5 && hour < 12) {
+            greeting = "Good Morning!";
+        } else if (hour >= 12 && hour < 17) {
+            greeting = "Good Afternoon!";
+        } else {
+            greeting = "Good Evening!";
+        }
+
+        // Set label text
+        label.setText(greeting);
+    }
+
+    public static void main(String[] args) {
+        new GreetingApp();
+    }
+}
+
+
+
+import javax.swing.*;
+import java.awt.event.*;
+
+public class CalculatorApp extends JFrame implements ActionListener {
+    JTextField num1Field, num2Field, resultField;
+    JButton addBtn, subBtn, mulBtn, divBtn;
+
+    CalculatorApp() {
+        setTitle("Simple Calculator");
+
+        // Input fields
+        num1Field = new JTextField();
+        num1Field.setBounds(50, 30, 100, 30);
+
+        num2Field = new JTextField();
+        num2Field.setBounds(160, 30, 100, 30);
+
+        // Result field
+        resultField = new JTextField();
+        resultField.setBounds(50, 70, 210, 30);
+        resultField.setEditable(false);
+
+        // Buttons
+        addBtn = new JButton("+");
+        addBtn.setBounds(50, 120, 50, 30);
+        addBtn.addActionListener(this);
+
+        subBtn = new JButton("-");
+        subBtn.setBounds(110, 120, 50, 30);
+        subBtn.addActionListener(this);
+
+        mulBtn = new JButton("*");
+        mulBtn.setBounds(170, 120, 50, 30);
+        mulBtn.addActionListener(this);
+
+        divBtn = new JButton("/");
+        divBtn.setBounds(230, 120, 50, 30);
+        divBtn.addActionListener(this);
+
+        // Frame setup
+        add(num1Field);
+        add(num2Field);
+        add(resultField);
+        add(addBtn);
+        add(subBtn);
+        add(mulBtn);
+        add(divBtn);
+
+        setSize(350, 220);
+        setLayout(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null); // Center the window
+        setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        try {
+            double n1 = Double.parseDouble(num1Field.getText());
+            double n2 = Double.parseDouble(num2Field.getText());
+            double result = 0;
+
+            if (e.getSource() == addBtn) {
+                result = n1 + n2;
+            } else if (e.getSource() == subBtn) {
+                result = n1 - n2;
+            } else if (e.getSource() == mulBtn) {
+                result = n1 * n2;
+            } else if (e.getSource() == divBtn) {
+                if (n2 == 0) {
+                    resultField.setText("Cannot divide by zero");
+                    return;
+                }
+                result = n1 / n2;
+            }
+
+            resultField.setText("Result: " + result);
+
+        } catch (NumberFormatException ex) {
+            resultField.setText("Invalid input!");
+        }
+    }
+
+    public static void main(String[] args) {
+        new CalculatorApp();
+    }
+}
