@@ -1,0 +1,21 @@
+import java.sql.*;
+import javax.swing.*;
+public class login extends javax.swing.JFrame{
+Ponnection conn = null;
+PreparedStatement pst=null;
+public login(){
+initComponents();
+conn=connection.connectdb();
+}
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt){
+try{
+String sql="insert into details(sid,sname,sage)values(?,?,?)");
+pst=conn.prepareStatement(sql);
+pst.setString(1,txt_id.getText());
+pst.setString(2,txt_name.getText());
+pst.setString(3,txt_age.getText());
+pst.execute();
+JOptionPane.showMessageDialog(null,"Inserted successfully");
+}catch(Exception e){
+JOptionPane.showMessageDialog(null,e);
+}}}

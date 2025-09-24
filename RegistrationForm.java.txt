@@ -1,0 +1,126 @@
+import javax.swing.*;
+
+import java.awt.*;
+
+import java.awt.event.*;
+
+public class RegistrationForm extends JFrame implements ActionListener {
+
+       JLabel nameLabel, emailLabel, passwordLabel, genderLabel;
+
+       JTextField nameField, emailField;
+
+       JPasswordField passwordField;
+
+       JRadioButton maleRadio, femaleRadio;
+
+       JButton registerButton;
+
+       ButtonGroup genderGroup;
+
+ public RegistrationForm() {
+
+     setTitle("Registration Form");
+
+     setSize(350, 300);
+
+     setLayout(new GridLayout(6, 2, 10, 10));
+
+     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+     nameLabel = new JLabel("Name:");
+
+     nameField = new JTextField();
+
+     emailLabel = new JLabel("Email:");
+
+     emailField = new JTextField();
+
+     passwordLabel = new JLabel("Password:");
+
+     passwordField = new JPasswordField();
+
+     genderLabel = new JLabel("Gender:");
+
+     maleRadio = new JRadioButton("Male");
+
+     femaleRadio = new JRadioButton("Female");
+
+     genderGroup = new ButtonGroup();
+
+     genderGroup.add(maleRadio);
+
+     genderGroup.add(femaleRadio);
+
+     registerButton = new JButton("Register");
+
+     registerButton.addActionListener(this);
+
+  add(nameLabel);
+
+  add(nameField);
+
+  add(emailLabel);
+
+  add(emailField);
+
+  add(passwordLabel);
+
+  add(passwordField);
+
+  add(genderLabel);
+
+  JPanel genderPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+  genderPanel.add(maleRadio);
+
+  genderPanel.add(femaleRadio);
+
+  add(genderPanel);
+
+  add(new JLabel());
+
+  add(registerButton);
+
+  setVisible(true);
+
+ }
+
+ public void actionPerformed(ActionEvent e) {
+
+  String name = nameField.getText();
+
+  String email = emailField.getText();
+
+  String password = new String(passwordField.getPassword());
+
+  String gender = maleRadio.isSelected() ? "Male" : (femaleRadio.isSelected() ? "Female" : "Unspecified");
+
+  JOptionPane.showMessageDialog(this, "Registered Successfully!\n"
+
+    + "Name: " + name
+
+    + "\nEmail: " + email
+
+    + "\nGender: " + gender);
+
+ }
+
+ public static void main(String[] args) {
+
+  new RegistrationForm();
+
+ }
+
+}
+
+
+
+
+
+
+
+
+
+
+
