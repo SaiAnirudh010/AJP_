@@ -1,0 +1,96 @@
+import javax.swing.*;
+
+import java.awt.*;
+
+import java.awt.event.*;
+
+import java.sql.*;
+
+public class Databasedemo extends JFrame implements ActionListener {
+
+  JTextField idField;
+
+  JButton insertBtn;
+
+  Connection con;
+
+  public Databasedemo() {
+
+    setTitle("Employee Database");
+
+    setSize(400, 300);
+
+    setLayout(new GridLayout(5, 2));
+
+    setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+    add(new JLabel("Employee ID:"));
+
+    idField = new JTextField();
+
+    add(idField);
+
+    insertBtn = new JButton("Insert");
+
+    add(insertBtn);
+
+    insertBtn.addActionListener(this);
+
+    connectDB();
+
+  }
+
+  private void connectDB() {
+
+    try {
+
+      Class.forName("com.mysql.cj.jdbc.Driver");
+
+      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student", "root", "1234");
+
+      System.out.println("Connected to MySQL DB");
+
+      } catch (Exception e) {
+
+      JOptionPane.showMessageDialog(this, "DB Connection Failed: " + e.getMessage());
+
+    }
+
+}
+
+  public void actionPerformed(ActionEvent ae) {
+
+    try {
+
+      int eid = Integer.parseInt(idField.getText());
+
+      if (ae.getSource() == insertBtn) {
+
+        PreparedStatement pst = con.prepareStatement("INSERT INTO sdata (sid) VALUES (?)");
+
+        pst.setInt(1, sid);
+
+        pst.executeUpdate();
+
+        JOptionPane.showMessageDialog(this, "Record Inserted");
+
+        pst.close();
+
+      }
+
+    } catch (Exception ex) {
+
+      JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+
+    }
+
+  }
+
+  public static void main(String[] args) {
+
+    new databasedemo1().setVisible(true);
+
+  }
+
+}
+
